@@ -11,4 +11,6 @@ class VkConfig:
     TOKEN = os.environ.get('TOKEN')
     CLIENT_ID = os.environ.get('CLIENT_ID')
     CLIENT_SECRET = os.environ.get('CLIENT_SECRET')
+    USERNAME = os.environ.get('USERNAME')
+    PASSWORD = os.environ.get('PASSWORD')
 

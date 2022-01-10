@@ -4,8 +4,11 @@ from config import VkConfig, BaseConfig
 import vk_api
 import json
 import requests
+from vkmuz import VkAndroidApi
 
 vk = vk_api.VkApi(token=VkConfig.TOKEN)
+
+vk_x = VkAndroidApi(login=VkConfig.USERNAME,password=VkConfig.PASSWORD)
 
 @app.route('/getList', methods=['GET', 'POST'])
 def index():
@@ -33,8 +36,12 @@ def dialog():
     
     result = vk.method('audio.getById', {'audios': f"{str(owner_id)}_{str(id)}"})
 
+    url_hls = vk_x.method("audio.getById",audios=f"{str(owner_id)}_{str(id)}")
+
     if 'album' not in result[0]:
             result[0].update({'album': {'thumb': {'photo_68': False}}})
+    
+    result[0].update({'url_hls':url_hls['response'][0]['url']})
 
     response = flask.Response(json.dumps(result[0]))
 
